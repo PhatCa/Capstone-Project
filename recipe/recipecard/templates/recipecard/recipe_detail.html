@@ -1,0 +1,13 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div>
+    <div>
+        <h2>{{recipe.name}} by {{recipe.author}}</h2>
+        <img src={{recipe.picture}} alt={{recipe.name}}>
+        <p>{{recipe.ingredient}}</p>
+        <p>{{recipe.instructions}}</p>
+
+    </div>
+</div>
+{% endblock %}
