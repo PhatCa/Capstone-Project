@@ -7,7 +7,6 @@ from recipecard import views as recipe_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',recipe_views.recipe_list, name="home"),
-    path('about/',views.about),
     path('recipe/',include('recipecard.urls')),
     path('accounts/',include('accounts.urls')),
     

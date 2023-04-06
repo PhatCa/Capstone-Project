@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Recipe
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from . import forms
+import json
+import requests
 # Create your views here.
 
 def recipe_list(request):
