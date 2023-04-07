@@ -81,3 +81,38 @@ def delete_recipe(request, id):
     if recipe.author == request.user:
         recipe.delete()
     return redirect('recipes:my_recipe')
+
+
+@login_required(login_url='/accounts/login/')
+def recipe_edit(request, id):
+    recipe = Recipe.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = forms.CreateRecipe(request.POST, instance=recipe)
+        if form.is_valid():
+            ingredient_array = form.cleaned_data['ingredient'].split(", ")
+
+            nutrient_info = {}
+            for ingredient in ingredient_array:
+                response = requests.get(f"https://api.nal.usda.gov/fdc/v1/foods/search?api_key=iJlhrcEhWmmtl93uiqrUYcLQYoMLIPiesxI3mepv&query={ingredient}")
+                newData = response.json()
+                nutrients = newData['foods'][1]['foodNutrients']
+                for nutrient in nutrients:
+                    nutrient_name = nutrient['nutrientName']
+                    nutrient_value = nutrient['value']
+                    nutrient_unit = nutrient['unitName']
+                    if nutrient_name in nutrient_info:
+                        nutrient_info[nutrient_name]['value'] += nutrient_value
+                    else:
+                        nutrient_info[nutrient_name] = {'value': nutrient_value, 'unit': nutrient_unit}
+
+            instance = form.save(commit=False)
+            instance.author = request.user
+            instance.nutrient_info = nutrient_info  
+            instance.save()
+            return redirect('recipes:detail', id=instance.id)
+
+    else:
+        form = forms.CreateRecipe(instance=recipe)
+
+    return render(request, 'recipecard/recipe_edit.html', {'form': form})
