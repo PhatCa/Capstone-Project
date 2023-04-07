@@ -1,0 +1,24 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<body>
+    <h1>Your Recipe</h1>
+    <div>
+        {% for recipe in recipes %}
+            <div>
+                <ul>
+                    <li>{{recipe.name}}</li>
+                    <img src="{{recipe.picture}}" alt="recipe-image">
+
+                    <form method="post" action="{% url 'recipes:delete' id=recipe.id %}">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete">
+                    </form>
+                    
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+    
+</body>
+{% endblock %}

@@ -24,6 +24,8 @@
                         </form>
                     </li>
                     <li><a href="{% url 'recipes:create'%}">Add Recipe</a></li>
+                    <li><a href="{% url 'recipes:my_recipe'%}">My Recipe</a></li>
+
                     {% else %}
                     <li><a href="{% url 'accounts:login' %}">Login</a></li>
                     <li><a href="{% url 'accounts:signup' %}">Signup</a></li>

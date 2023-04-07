@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from . import forms
 import json
 import requests
+import ast
 # Create your views here.
 
 #iJlhrcEhWmmtl93uiqrUYcLQYoMLIPiesxI3mepv (api key)
@@ -15,7 +16,23 @@ def recipe_list(request):
 
 def recipe_detail(request,id):
     recipe = Recipe.objects.get(id=id)
-    return render(request,'recipecard/recipe_detail.html', {'recipe':recipe})
+    # Convert the string to dictionary object
+    nutrient_info_dict = ast.literal_eval(recipe.nutrient_info)
+
+    # Create a list of dictionaries
+    formatted_nutrients = []
+    for nutrient, values in nutrient_info_dict.items():
+        if isinstance(values, dict):  # Check if values is a dictionary
+            formatted_nutrient = {
+                'nutrient': nutrient,
+                'value': values['value'],
+                'unit': values['unit']
+            }
+            formatted_nutrients.append(formatted_nutrient)
+
+    return render(request,'recipecard/recipe_detail.html', {'recipe':recipe, 'formatted_nutrients': formatted_nutrients})
+
+
 
 
 @login_required(login_url='/accounts/login/')
@@ -52,3 +69,15 @@ def recipe_create(request):
     else:
         form = forms.CreateRecipe()
     return render(request, 'recipecard/recipe_create.html', {'form': form})
+
+@login_required(login_url='/accounts/login/')
+def my_recipe(request):
+    recipes = Recipe.objects.filter(author=request.user)
+    return render(request, 'recipecard/my_recipes.html', {'recipes': recipes})
+
+@login_required(login_url='/accounts/login/')
+def delete_recipe(request, id):
+    recipe = Recipe.objects.get(id=id)
+    if recipe.author == request.user:
+        recipe.delete()
+    return redirect('recipes:my_recipe')

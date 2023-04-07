@@ -7,8 +7,16 @@
         <img src={{recipe.picture}} alt={{recipe.name}}>
         <p>{{recipe.ingredient}}</p>
         <p>{{recipe.instructions}}</p>
-        <ul>{{recipe.nutrient_info}}</ul>
-
-    </div>
+        <p>Nutrient Information:</p>
+        <ul>
+            {% for nutrient_info in formatted_nutrients %}
+                {% if nutrient_info.value != 0 %}
+                
+                <li>{{ nutrient_info.nutrient }}: {{ nutrient_info.value }} {{ nutrient_info.unit }}</li>
+                {% endif %}
+            {% endfor %}
+          
+          </ul>
+          </div>
 </div>
 {% endblock %}
