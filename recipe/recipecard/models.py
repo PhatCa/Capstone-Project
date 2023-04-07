@@ -9,7 +9,7 @@ class Recipe(models.Model):
     instructions = models.TextField()
     picture = models.CharField(max_length=255)
     author = models.ForeignKey(User, on_delete=models.PROTECT,default=None)
-
+    nutrient_info = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name

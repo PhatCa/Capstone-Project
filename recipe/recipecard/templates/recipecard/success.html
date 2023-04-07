@@ -1,0 +1,17 @@
+{% extends "base_layout.html" %}
+
+{% block content %}
+  <h1>Recipe created successfully</h1>
+
+  <h2>Total Nutrient Information</h2>
+  {% if nutrient_info %}
+    <ul>
+      {% for nutrient, nutrient_info in nutrient_info.items %}
+      <li>{{ nutrient }}: {{ nutrient_info.value }} {{ nutrient_info.unit }}</li>
+      {% endfor %}
+    
+    </ul>
+  {% else %}
+    <p>No nutrient information available.</p>
+  {% endif %}
+{% endblock %}
