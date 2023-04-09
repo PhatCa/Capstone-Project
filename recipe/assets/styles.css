@@ -1,0 +1,14 @@
+body{
+    background: green;
+}
+.card-img-top {
+    max-height: 200px;
+    width: 100%;
+    object-fit: contain;
+    
+}
+.recipe-list{
+    text-align: center;
+    padding-top:20px;
+    padding-bottom: 20px;
+}

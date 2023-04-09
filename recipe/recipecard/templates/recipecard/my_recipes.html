@@ -3,25 +3,20 @@
 {% block content %}
 <body>
     <h1>Your Recipe</h1>
-    <div>
+    <div class="row justify-content-center">
         {% for recipe in recipes %}
-            <div>
-                <ul>
-                    <li>{{recipe.name}}</li>
-                    <img src="{{recipe.picture}}" alt="recipe-image">
-
-                    <form method="post" action="{% url 'recipes:delete' id=recipe.id %}">
-                        {% csrf_token %}
-                        <input type="submit" value="Delete">
-                    </form>
-                    
-                    <form method="get" action="{% url 'recipes:edit' id=recipe.id %}">
-                        {% csrf_token %}
-                        <input type="submit" value="Edit">
-                    </form>
-
-                </ul>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="card" >
+            <img class="card-img-top" src="{{ recipe.picture }}" alt="{{ recipe.name }}"  >
+            <div class="card-body">
+              <h5 class="card-title">{{ recipe.name }} by {{ recipe.author }}</h5>
+              <p class="card-text">Ingredient: {{ recipe.snippet }}</p>
+              <a class="btn btn-primary" href="{% url 'recipes:detail' id=recipe.id %}">
+                Details
+              </a>
             </div>
+          </div>
+        </div>
         {% endfor %}
     </div>
     
