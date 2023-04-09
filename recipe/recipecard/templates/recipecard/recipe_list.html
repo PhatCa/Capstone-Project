@@ -1,18 +1,24 @@
+
 {% extends 'base_layout.html' %}
 
-
-
 {% block content %}
-<body>
-    <h1>Recipe List</h1>
-    <div class= 'recipes'>
-        {% for recipe in recipes %}
-        <div class="recipe">
-            <h2><a href="{% url 'recipes:detail' id=recipe.id %}">{{recipe.name}} by {{recipe.author}}</a></h2>
-            <img src={{recipe.picture}} alt={{recipe.name}}>
-            <p>Ingredient: {{recipe.ingredient}}</p>
+<div class="container">
+  <h1>Recipe List</h1>
+  <div class="row justify-content-center">
+    {% for recipe in recipes %}
+    <div class="col-sm-6 col-md-4 mb-3">
+      <div class="card" >
+        <img class="card-img-top" src="{{ recipe.picture }}" alt="{{ recipe.name }}"  >
+        <div class="card-body">
+          <h5 class="card-title">{{ recipe.name }} by {{ recipe.author }}</h5>
+          <p class="card-text">Ingredient: {{ recipe.snippet }}</p>
+          <a class="btn btn-primary" href="{% url 'recipes:detail' id=recipe.id %}">
+            Details
+          </a>
         </div>
-        {% endfor %}
+      </div>
     </div>
-</body>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

@@ -13,3 +13,6 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def snippet(self):
+        return self.ingredient[:50] + '...'
