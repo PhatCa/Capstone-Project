@@ -12,3 +12,20 @@ body{
     padding-top:20px;
     padding-bottom: 20px;
 }
+.my-recipe-title{
+    text-align: center;
+}
+
+.form-control{
+    background-color: gray;
+    width:50%;
+}
+
+.create-form-container{
+    border: 2px solid;
+    border-color: blue;
+    border-radius: 20px;
+    width: 70%;
+    padding:50px;
+    background-color:aquamarine;
+}

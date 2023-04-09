@@ -1,24 +1,29 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-<body>
-    <h1>Your Recipe</h1>
-    <div class="row justify-content-center">
-        {% for recipe in recipes %}
-        <div class="col-sm-6 col-md-4 mb-3">
-          <div class="card" >
-            <img class="card-img-top" src="{{ recipe.picture }}" alt="{{ recipe.name }}"  >
-            <div class="card-body">
-              <h5 class="card-title">{{ recipe.name }} by {{ recipe.author }}</h5>
-              <p class="card-text">Ingredient: {{ recipe.snippet }}</p>
-              <a class="btn btn-primary" href="{% url 'recipes:detail' id=recipe.id %}">
-                Details
-              </a>
-            </div>
+<div class="container">
+  <h1>Your Recipe</h1>
+  <div class="row justify-content-center">
+    {% for recipe in recipes %}
+    <div class="col-sm-6 col-md-4 mb-3">
+      <div div class="card">
+        <img class="card-img-top" src="{{recipe.picture}}" alt="recipe-image">
+        <div class="card-body">
+          <h5 class="my-recipe-title">{{recipe.name}}</h5>
+          <div class="card-body d-flex justify-content-between">
+            <form method="get" action="{% url 'recipes:edit' id=recipe.id %}">
+              {% csrf_token %}
+              <input  class="btn btn-primary" type="submit" value="Edit">
+            </form>
+            <form method="post" action="{% url 'recipes:delete' id=recipe.id %}">
+              {% csrf_token %}
+              <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
           </div>
         </div>
-        {% endfor %}
+      </div>
     </div>
-    
-</body>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

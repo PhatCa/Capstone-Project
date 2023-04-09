@@ -5,11 +5,13 @@
     <h2>Create recipe</h2>
 
     <!-- if want to upload file from comp make sure add enctype  in form tag -->
-    
-    <form class="site-form" action="{% url 'recipes:create' %}" method="post">
-        {% csrf_token %}
-        {{form}}
-        <input type="submit" value="Post Recipe">
-    </form>
+    <div class="create-form-container">
+
+        <form class="site-form" action="{% url 'recipes:create' %}" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Post Recipe">
+        </form>
+    </div>
 </div>
 {% endblock %}
