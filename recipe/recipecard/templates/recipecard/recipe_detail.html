@@ -2,22 +2,34 @@
 
 {% block content %}
 
-    <div class="card" style="width: 18rem;">
-        <h2>{{recipe.name}} by {{recipe.author}}</h2>
-        <img class="card-img-top" src={{recipe.picture}} alt={{recipe.name}}>
-        
-        <p>{{recipe.ingredient}}</p>
-        <p>{{recipe.instructions}}</p>
-        <p>Nutrient Information:</p>
-        <ul>
-            {% for nutrient_info in formatted_nutrients %}
-                {% if nutrient_info.value != 0 %}
-                
-                <li>{{ nutrient_info.nutrient }}: {{ nutrient_info.value }} {{ nutrient_info.unit }}</li>
-                {% endif %}
-            {% endfor %}
-          
-          </ul>
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src={{recipe.picture}} alt={{recipe.name}}>
+    <div class="card-body">
+
+        <h1 class="card-title">{{recipe.name}} by {{recipe.author}}</h1>
+        <h3 class="card-title">Ingredient:</h3>
+        <p class="card-text">{{recipe.ingredient}}</p>
+        <h3 class="card-title">Instruction:</h3>
+        <p class="card-text">{{recipe.instructions}}</p>
+        <h3 class="card-title">Nutrient Fact:</h3>
+
+        <div>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNutrients" aria-expanded="false" aria-controls="collapseNutrients">
+                Nutrient Information
+            </button>
+            <div class="collapse" id="collapseNutrients">
+                <ul>
+                    {% for nutrient_info in formatted_nutrients %}
+                    {% if nutrient_info.value != 0 %}
+                    <li>{{ nutrient_info.nutrient }}: {{ nutrient_info.value }} {{ nutrient_info.unit }}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
+</div>
+      
+
           
 {% endblock %}
