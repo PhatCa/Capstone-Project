@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'recipecard',
     'assets',
-    'accounts'
+    'accounts',
+    
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
-
 ROOT_URLCONF = 'recipe.urls'
 
 TEMPLATES = [
@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'recipe.wsgi.application'
 #     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 # }
 
-DATABASE = {
+DATABASES = {
     'default': dj_database_url.config(
     conn_max_age=600,
     conn_health_checks=True,
